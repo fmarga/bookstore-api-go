@@ -6,6 +6,7 @@ import (
 
 	"github.com/fmarga/bookstore-api-go/controllers"
 	"github.com/fmarga/bookstore-api-go/mid"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -18,5 +19,5 @@ func HandleRequest() {
 	r.HandleFunc("/api/all", controllers.AddBook).Methods("Post")
 	r.HandleFunc("/api/all/{id}", controllers.EditBook).Methods("Put")
 	r.HandleFunc("/api/all/{id}", controllers.DeleteBook).Methods("Delete")
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
 }
